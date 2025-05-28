@@ -28,16 +28,55 @@ It supports automatic certificate management, real-time configuration reloads, l
 
 ---
 
+## Minimal Example
+
+Here is a minimal `redirects.json` example for a single domain with automatic HTTPS certificate (Let's Encrypt), no weights, and a single backend target:
+
+```json
+[
+  {
+    "host": "yourdomain.com",
+    "path": "",
+    "targets": [
+      "http://localhost:8080"
+    ],
+    "useHTTPS": true,
+    "preservePath": false
+  }
+]
+```
+
+**How to use:**
+1. Replace `"yourdomain.com"` with your real domain (it must point to your server's IP).
+2. Make sure port 80 and 443 are open and not blocked by a firewall.
+3. Run ProxiNet (no flags needed, language will be auto-selected from `conf.json` or default to English):
+   ```sh
+   ./proxinet
+   ```
+4. Optionally, you can specify language with a flag:
+   ```sh
+   ./proxinet -lang=lt
+   ```
+5. ProxiNet will automatically obtain and renew a free HTTPS certificate for your domain.
+
+**No weights or extra settings are needed for this minimal setup. Just the domain, path, and target.**
+
+---
+
 ## Usage
 
 ### 1. Build and run
 
 ```sh
-./proxinet -lang=en
+./proxinet
 ```
 
-- Use `-lang=lt`, `-lang=pl`, `-lang=es`, or `-lang=de` for other languages.
+- You can also use `-lang=lt`, `-lang=pl`, `-lang=es`, or `-lang=de` for other languages:
+  ```sh
+  ./proxinet -lang=lt
+  ```
 - The selected language is saved in `conf.json` for next runs.
+- If you run without the `-lang` flag, the language will be automatically selected from the last used value in `conf.json` (if it exists), or default to English.
 
 ---
 
@@ -157,37 +196,6 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
 1. Edit `redirects.json` and add a new entry with `"host": "newdomain.com", "useHTTPS": true`.
 2. Save the file.
 3. ProxiNet will detect the change, reload config, and automatically request a certificate for `newdomain.com` (no restart needed).
-
----
-
-## Minimal Example
-
-Here is a minimal `redirects.json` example for a single domain with automatic HTTPS certificate (Let's Encrypt), no weights, and a single backend target:
-
-```json
-[
-  {
-    "host": "yourdomain.com",
-    "path": "",
-    "targets": [
-      "http://localhost:8080"
-    ],
-    "useHTTPS": true,
-    "preservePath": false
-  }
-]
-```
-
-**How to use:**
-1. Replace `"yourdomain.com"` with your real domain (it must point to your server's IP).
-2. Make sure port 80 and 443 are open and not blocked by a firewall.
-3. Run ProxiNet as root or with sufficient privileges:
-   ```sh
-   sudo ./proxinet -lang=en
-   ```
-4. ProxiNet will automatically obtain and renew a free HTTPS certificate for your domain.
-
-**No weights or extra settings are needed for this minimal setup. Just the domain, path, and target.**
 
 ---
 
