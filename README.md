@@ -166,7 +166,7 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
 ---
 
 ### `conf.json` are automatically created and managed by ProxiNet. 
-When ProxiNer runed fith language flag, it will create `conf.json` with the selected language.
+When ProxiNer runed with language flag, it will create `conf.json` with the selected language.
 It be remembered for future runs. and saved as:
 ```json
 {
