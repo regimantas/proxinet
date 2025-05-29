@@ -30,6 +30,21 @@ It supports automatic certificate management, real-time configuration reloads, l
 
 ## Minimal Example
 
+Here is a minimal `redirects.json` example for a single domain, no weights, and a single backend target:
+
+```json
+[
+  {
+    "host": "example.com",
+    "path": "",
+    "targets": [
+      "http://localhost:8080"
+    ]
+  }
+]
+```
+
+## Minimal Example with HTTPS
 Here is a minimal `redirects.json` example for a single domain with automatic HTTPS certificate (Let's Encrypt), no weights, and a single backend target:
 
 ```json
@@ -40,8 +55,7 @@ Here is a minimal `redirects.json` example for a single domain with automatic HT
     "targets": [
       "http://localhost:8080"
     ],
-    "useHTTPS": true,
-    "preservePath": false
+    "useHTTPS": true
   }
 ]
 ```
@@ -65,7 +79,7 @@ Here is a minimal `redirects.json` example for a single domain with automatic HT
 
 ## Usage
 
-### 1. Build and run
+### 1. Run ProxiNet
 
 ```sh
 ./proxinet
@@ -80,10 +94,18 @@ Here is a minimal `redirects.json` example for a single domain with automatic HT
 
 ---
 
-### 2. Run as a systemd service (Linux)
+### 2. Run as a systemd service for Linux or Windows
 
 ```sh
+# For Linux needs root privileges
+sudo ./proxinet -service
+# or to specify language and service name
 sudo ./proxinet -service -lang=en -svcname=proxinet
+
+# For Windows, run in an elevated command prompt (as Administrator)
+./proxinet -service
+# or to specify language and service name
+./proxinet -service -lang=en -svcname=proxinet
 ```
 
 - This will create `/etc/systemd/system/proxinet.service`, enable and start the service.
@@ -104,8 +126,6 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
       "http://localhost:8082"
     ],
     "weights": [3, 1],
-    "certFile": "",
-    "keyFile": "",
     "useHTTPS": true,
     "preservePath": false
   },
@@ -116,8 +136,6 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
       "http://localhost:9000"
     ],
     "weights": [1],
-    "certFile": "",
-    "keyFile": "",
     "useHTTPS": false,
     "preservePath": true
   },
@@ -147,8 +165,9 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
 
 ---
 
-### `conf.json` example
-
+### `conf.json` are automatically created and managed by ProxiNet. 
+When ProxiNer runed fith language flag, it will create `conf.json` with the selected language.
+It be remembered for future runs. and saved as:
 ```json
 {
   "lang": "en"
