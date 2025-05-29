@@ -1,7 +1,7 @@
 # ProxiNet
 
 **ProxiNet** is a modern, dynamic, and lightweight reverse proxy server for HTTP and HTTPS.  
-It supports automatic certificate management, real-time configuration reloads, load balancing with weights, WebSocket proxying, multi-language logging, and can be easily run as a Linux systemd service.
+It supports automatic certificate management, real-time configuration reloads, load balancing with weights, WebSocket proxying, multi-language logging, and can be easily run as a Linux systemd or Windows service.
 
 ---
 
