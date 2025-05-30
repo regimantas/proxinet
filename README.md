@@ -21,7 +21,7 @@ It supports automatic certificate management, real-time configuration reloads, l
   Fully supports WebSocket connections.
 - **Multi-language logging:**  
   Logs and errors are translated (English, Lithuanian, Polish, Spanish, German) and language can be changed at runtime.
-- **Systemd integration:**  
+- **Services integration:**  
   Can generate and enable a Linux systemd and Windows service automatically.
 - **Hot reload:**  
   Add, remove, or change domains, targets, or certificates in `redirects.json` and changes take effect in seconds.
