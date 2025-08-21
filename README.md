@@ -1,7 +1,7 @@
 # ProxiNet
 
 **ProxiNet** is a modern, dynamic, and lightweight reverse proxy server for HTTP and HTTPS.  
-It supports automatic certificate management, real-time configuration reloads, load balancing with weights, WebSocket proxying, multi-language logging, and can be easily run as a Linux systemd or Windows service.
+It supports automatic certificate management, real-time configuration reloads, load balancing with weights, WebSocket proxying, multi-language logging, and can be easily run as a Linux systemd service.
 
 ---
 
@@ -19,10 +19,12 @@ It supports automatic certificate management, real-time configuration reloads, l
   Supports multiple backend targets per route, with weighted round-robin balancing.
 - **WebSocket proxying:**  
   Fully supports WebSocket connections.
+- **Upstream base path (optional):**  
+  Mount an app that lives under a subpath on the backend (for example CouchDB’s `/_utils`) at your domain root without changing the client URL. Set `upstreamBasePath`, and requests like `https://example.com/` will be proxied to `http://backend/_utils/`.
 - **Multi-language logging:**  
   Logs and errors are translated (English, Lithuanian, Polish, Spanish, German) and language can be changed at runtime.
-- **Services integration:**  
-  Can generate and enable a Linux systemd and Windows service automatically.
+- **Systemd integration:**  
+  Can generate and enable a Linux systemd service automatically.
 - **Hot reload:**  
   Add, remove, or change domains, targets, or certificates in `redirects.json` and changes take effect in seconds.
 
@@ -150,6 +152,17 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
     "keyFile": "/etc/ssl/private/anotherdomain.key",
     "useHTTPS": true,
     "preservePath": true
+  },
+  {
+    "host": "yetanotherdomain.com",
+    "path": "",
+    "targets": [
+      "http://192.168.1.100:8080"
+    ],
+    "useHTTPS": true,
+    "preservePath": true,
+    "upstreamBasePath": "/_utils"
+
   }
 ]
 ```
@@ -166,7 +179,7 @@ sudo ./proxinet -service -lang=en -svcname=proxinet
 ---
 
 ### `conf.json` are automatically created and managed by ProxiNet. 
-When ProxiNer runed with language flag, it will create `conf.json` with the selected language.
+When ProxiNer runed fith language flag, it will create `conf.json` with the selected language.
 It be remembered for future runs. and saved as:
 ```json
 {
